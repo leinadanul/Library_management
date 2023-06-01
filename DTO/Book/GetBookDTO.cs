@@ -9,10 +9,10 @@ namespace Manage_Library2._0.DTO.Book
     {
     public int Id {get;set;}       
 
-    public string ISBN {get;set;} = "df897324y5r7823";
-    public string title {get;set;} = "las aventuras de tom";
-    public string author {get;set;} = "pepe Grillo";
-    public string genere {get;set;} = "comedia";
-    public int amountCopies {get;set;} = 100;
+    public string ISBN {get;set;}
+    public string title {get;set;}
+    public string author {get;set;}
+    public string genere {get;set;}
+    public int amountCopies {get;set;}
     }
 }

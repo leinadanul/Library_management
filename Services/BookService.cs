@@ -15,17 +15,35 @@ namespace Manage_Library2._0.Services
         // Constructor de la clase service 
         public BookService(IMapper mapper, DataContext context)
         {
-            _context = context;
-            _mapper = mapper;
-        }   
+        _context = context;
+        _mapper = mapper;
+        }
+
+        //Service para obtener todos los libros que se encuenrran en la lista 
         public async Task<ServiceResponse<List<GetBookDTO>>> GetAllBooks()
         {
-            var ServiceResponse = new  ServiceResponse<List<GetBookDTO>>();
+            var serviceResponse = new  ServiceResponse<List<GetBookDTO>>();
             var dbBook = await _context.Books.ToListAsync();
-            ServiceResponse.Data = dbBook
+            serviceResponse.Data = dbBook
             .Select(p=> _mapper.Map<GetBookDTO>(p)).ToList();
-            return ServiceResponse;
+            return serviceResponse;
         }
+
+
+        //Service de Post Para publicar nuevo libro 
+        public async Task<ServiceResponse<List<GetBookDTO>>> AddBook(AddBookDTO NewBook)
+        {
+            var serviceResponse = new ServiceResponse<List<GetBookDTO>>();
+            var book = _mapper.Map<Book>(NewBook);
+
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = books
+            .Select(p => _mapper.Map<GetBookDTO>(p)).ToList();
+            return serviceResponse;
+        }
+        
     }
     
 }

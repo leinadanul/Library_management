@@ -9,6 +9,7 @@ namespace Manage_Library2._0.Interface
     public interface IBookService
     {
         Task<ServiceResponse<List<GetBookDTO>>> GetAllBooks();
+        Task<ServiceResponse<List<GetBookDTO>>> AddBook(AddBookDTO NewBook);
     }
 }
 

@@ -20,11 +20,20 @@ namespace Manage_Library2._0.Controllers
             _logger = logger;
             _bookService = bookService;
         }
-
+///////////////////////////////////////////////////////////////////////////////////// Iniciando ////////////////////////////////////////////////////////////////////////
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<GetBookDTO>>>> Get()
         {
             return Ok(await _bookService.GetAllBooks());
+        }
+
+
+        
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<GetBookDTO>>>> AddBook( AddBookDTO newBook)
+        {
+            
+            return Ok(await _bookService.AddBook(newBook));
         }
     }
 }
