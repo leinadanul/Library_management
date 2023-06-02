@@ -10,6 +10,7 @@ namespace Manage_Library2._0.Interface
     {
         Task<ServiceResponse<List<GetBookDTO>>> GetAllBooks();
         Task<ServiceResponse<List<GetBookDTO>>> AddBook(AddBookDTO NewBook);
+        Task Save(Book book);
     }
 }
 

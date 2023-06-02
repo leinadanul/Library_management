@@ -31,6 +31,15 @@ namespace Manage_Library2._0.Services
 
 
         //Service de Post Para publicar nuevo libro 
+
+        public async Task Save(Book book)
+    {
+        _context.Add(book);
+        await _context.SaveChangesAsync();
+    }
+
+
+        
         public async Task<ServiceResponse<List<GetBookDTO>>> AddBook(AddBookDTO NewBook)
         {
             var serviceResponse = new ServiceResponse<List<GetBookDTO>>();
@@ -44,6 +53,7 @@ namespace Manage_Library2._0.Services
             return serviceResponse;
         }
         
+
     }
     
 }

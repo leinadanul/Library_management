@@ -8,16 +8,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Manage_Library2._0.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class BookController : Controller
     {
-        private readonly ILogger<BookController> _logger;
+    
         private readonly IBookService _bookService;
 
         //Constructor
-        public BookController(ILogger<BookController> logger, IBookService bookService)
+        public BookController(IBookService bookService)
         {
-            _logger = logger;
             _bookService = bookService;
         }
 ///////////////////////////////////////////////////////////////////////////////////// Iniciando ////////////////////////////////////////////////////////////////////////
