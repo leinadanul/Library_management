@@ -12,14 +12,16 @@ namespace Manage_Library2._0.Services
         private readonly DataContext _context;
 
 
-        // Constructor de la clase service 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////// Constructor de la clase service ///////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
         public BookService(IMapper mapper, DataContext context)
         {
         _context = context;
         _mapper = mapper;
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////Service para obtener todos los libros que se encuenrran en la lista ////////////////
+        /////////////////Service Get para obtener todos los libros que se encuenrran en la lista ////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         public async Task<ServiceResponse<List<GetBookDTO>>> GetAllBooks()
         {
@@ -30,7 +32,7 @@ namespace Manage_Library2._0.Services
             return serviceResponse;
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////Service para obtener un libro que se encuenrran en la lista buscandolo por id////////////////
+        /////////////////Service Get Id para obtener un libro que se encuenrran en la lista buscandolo por id/////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public async Task<ServiceResponse<GetBookDTO>> GetBookById(int id)
         {
@@ -59,10 +61,39 @@ namespace Manage_Library2._0.Services
             .Select(p => _mapper.Map<GetBookDTO>(p)).ToList();
             return serviceResponse;
         }
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////Service de Put Para actualizar informacion del libro ////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public async Task<ServiceResponse<GetBookDTO>> UpdateBook(UpdateBookDTO updatedBook)
+        {
+            var serviceResponse = new ServiceResponse<GetBookDTO>();
+            try
+            {
+                var book = await _context.Books.FirstOrDefaultAsync(p => p.Id == updatedBook.Id);
+                if (book is null)
+                throw new Exception($"Book with '{updatedBook.Id}' not found.");
+                _mapper.Map(updatedBook, book);
+
+                book.ISBN = updatedBook.ISBN;
+                book.title = updatedBook.title;
+                book.author = updatedBook.author;
+                book.genere = updatedBook.genere;
+                book.amountCopies = updatedBook.amountCopies;
 
 
-    }
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = _mapper.Map<GetBookDTO>(book);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     
+    
+    }
 }
 
 
@@ -85,4 +116,41 @@ namespace Manage_Library2._0.Services
             }
             return serviceResponse;
         }
+
+
+
+
+
+        public async Task<ServiceResponse<GetBookDTO>> UpdateBook(UpdateBookDTO updateBook)
+        {
+            var serviceResponse = new ServiceResponse<GetBookDTO>();
+            try
+            {
+                var book = books.FirstOrDefault(p => p.Id == updateBook.Id);
+                if (book is null)
+                throw new Exception($"Book with '{updateBook.Id}' not found.");
+                _mapper.Map(updateBook, book);
+
+                book.ISBN = updateBook.ISBN;
+                book.title = updateBook.title;
+                book.author = updateBook.author;
+                book.genere = updateBook.genere;
+                book.amountCopies = updateBook.amountCopies;
+
+                serviceResponse.Data = _mapper.Map<GetBookDTO>(book);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
+
+
+
+
+
+
+
         */

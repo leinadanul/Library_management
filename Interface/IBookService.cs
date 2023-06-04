@@ -25,12 +25,12 @@ namespace Manage_Library2._0.Interface
 
         
         Task<ServiceResponse<List<GetBookDTO>>> AddBook(AddBookDTO NewBook);
+
+
         ////////////////////////////////////////////////////////////////
         ///////////////////Actualizar Libro/////////////////////////////
         ////////////////////////////////////////////////////////////////
-
-
-        //Task<ServiceResponse<GetBookDTO>> Update(UpdateBookDTO updateBook);
+        Task<ServiceResponse<GetBookDTO>> UpdateBook(UpdateBookDTO updatedBook);
     }
 }
 

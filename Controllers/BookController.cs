@@ -27,15 +27,12 @@ namespace Manage_Library2._0.Controllers
         {
             return Ok(await _bookService.GetAllBooks());
         }
-        
         //GET ID
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetBookDTO>>> GetBookId(int id)
         {
             return Ok(await _bookService.GetBookById(id));
         }
-
-        
         //POST
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetBookDTO>>>> AddBook( AddBookDTO newBook)
@@ -43,7 +40,16 @@ namespace Manage_Library2._0.Controllers
             
             return Ok(await _bookService.AddBook(newBook));
         }
-    
-    
+        //PUT
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetBookDTO>>>> UpdateBook(UpdateBookDTO updateBook)
+        {
+            var response = await _bookService.UpdateBook(updateBook);
+            if(response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
